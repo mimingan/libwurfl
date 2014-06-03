@@ -166,7 +166,12 @@ devicedef_t* matcher_match(matcher_t* matcher, const char* user_agent) {
 	else {
 		matched = match((devicedef_t**)toarray_data.array, toarray_data.size, user_agent, UINT32_MAX);
 	}
-
+	
+	//Modified by mimingan for memory leak on 2014-06-03
+	if( toarray_data.array )  {
+	    free( toarray_data.array );
+	}
+	
 	assert(matched != NULL);
 	return matched;
 }
